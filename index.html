@@ -1,0 +1,55 @@
+<html >
+<head>
+</head>
+<body>
+    <a href="/docs"></a>
+  <form name="publish">
+    <input type="text" name="message">
+    <input type="submit" value="Send">
+  </form>
+  <div id="messages"></div>
+</body>
+
+<script type="text/javascript">
+    
+    let socket = new WebSocket("ws://localhost:3000?c"+Math.random());
+    
+    socket.onopen = (...e)=>{
+        console.log(":::onopen", e)
+    }
+    
+    socket.onclose = (...e)=>{
+        console.log(":::onclose", e)
+    }
+    
+    socket.onerror = (...e)=>{
+        console.log(":::onerror", e)
+    }
+    
+    
+    socket.onmessage = (event)=>{        
+        let data = JSON.parse(event.data);
+        console.log(":::message", data)
+        const messageElem = document.createElement('pre');
+        messageElem.textContent = data.sessionId +":" + data.type;
+        switch (data.type){
+            case "chat:message" :
+                messageElem.textContent = messageElem.textContent + ":: " + data.text
+        }
+        
+        document.getElementById('messages').prepend(messageElem);
+        }
+    
+    
+    
+    document.forms.publish.onsubmit = function(event) {
+        event.preventDefault();
+        let text = this.message.value;
+        socket.send(JSON.stringify({
+            type:"user:message",            
+            text
+        }));
+        return false;
+        }        
+        </script>
+</html>

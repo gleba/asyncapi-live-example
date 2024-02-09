@@ -1,0 +1,18 @@
+{
+  "name": "asyncapi_live_example",
+  "version": "1.0.0",
+  "description": "Live Example of AsyncAPI specification",
+  "scripts": {
+    "start": "npm start"
+  },
+  "author": "dev@gleb.pw",
+  "license": "ISC",
+  "dependencies": {
+    "@sinclair/typebox": "^0.32.13",
+    "ajv": "^8.12.0",
+    "tslib": "^2.6.2",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.41.0",
+    "ws": "^8.16.0",
+    "wsapix": "^0.5.2"
+  }
+}
